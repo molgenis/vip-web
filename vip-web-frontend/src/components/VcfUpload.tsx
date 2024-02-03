@@ -40,7 +40,12 @@ export const VcfUpload: Component<{
     <div class="field">
       <div class="file">
         <label class="file-label">
-          <input class="file-input" type="file" accept={props.accept} onChange={() => handleFileChange} />
+          <input
+            class="file-input"
+            type="file"
+            accept={props.accept}
+            onChange={(event) => void handleFileChange(event)}
+          />
           <span class="file-cta">
             <span class="file-icon">
               <i class="fas fa-upload" />

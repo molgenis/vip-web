@@ -12,11 +12,11 @@ export const JobUpdate: Component = () => {
 
   const handleSubmit = async (event: JobUpdateEvent) => {
     await api.updateJob(event.job);
-    navigate(`/jobs`);
+    navigate("/jobs");
   };
 
   const handleCancel = () => {
-    navigate(`/jobs`);
+    navigate("/jobs");
   };
 
   return (
@@ -25,7 +25,9 @@ export const JobUpdate: Component = () => {
         <h1 class="title">New Job</h1>
         <Show when={!job.loading} fallback={<Loader />}>
           <Show when={job()} fallback={<Loader />} keyed>
-            {(job) => <JobUpdateForm job={job} onSubmit={handleSubmit} onCancel={handleCancel} />}
+            {(job) => (
+              <JobUpdateForm job={job} onSubmit={(event) => void handleSubmit(event)} onCancel={handleCancel} />
+            )}
           </Show>
         </Show>
       </div>

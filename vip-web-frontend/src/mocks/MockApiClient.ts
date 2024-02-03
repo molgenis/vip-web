@@ -24,7 +24,12 @@ export class MockApiClient implements Api {
     // workaround: see https://stackoverflow.com/questions/4011793/this-is-undefined-in-javascript-class-methods/72197516#72197516
     Object.getOwnPropertyNames(MockApiClient.prototype).forEach((key) => {
       if (key !== "constructor") {
+        // add eslint-disable / eslint-disable for eslint
+        /* eslint-disable */
+        // add @ts-ignore for IDE
+        // @ts-ignore
         this[key] = this[key].bind(this);
+        /* eslint-enable */
       }
     });
   }
@@ -108,20 +113,22 @@ export class MockApiClient implements Api {
     return Promise.resolve([...this.jobs].reverse());
   }
 
-  // mock util: https://stackoverflow.com/questions/51026420/filereader-readastext-async-issues
+  // mock util based on https://stackoverflow.com/questions/51026420/filereader-readastext-async-issues
   parse(file: File): Promise<string[]> {
     // Always return a Promise
     return new Promise((resolve, reject) => {
       let content = "";
       const reader = new FileReader();
       // Wait till complete
-      reader.onloadend = function (e: any) {
-        content = e.target.result;
-        const result = content.split(/\r\n|\n/);
-        resolve(result);
+      reader.onloadend = function (e) {
+        if (e.target !== null) {
+          content = e.target.result as string;
+          const result = content.split(/\r\n|\n/);
+          resolve(result);
+        }
       };
       // Make sure to handle error states
-      reader.onerror = function (e: any) {
+      reader.onerror = function (e) {
         reject(e);
       };
       reader.readAsText(file);

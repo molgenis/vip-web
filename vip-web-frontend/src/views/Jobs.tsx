@@ -28,7 +28,7 @@ export const Jobs: Component = () => {
   return (
     <>
       <h1 class="title">Jobs</h1>
-      <VcfUpload accept=".vcf,.vcf.bgz,.vcf.gz,.bcf,.bcf.bgz,.bcf.gz" onUpload={() => onUpload} />
+      <VcfUpload accept=".vcf,.vcf.bgz,.vcf.gz,.bcf,.bcf.bgz,.bcf.gz" onUpload={(event) => void onUpload(event)} />
 
       <Show when={!jobs.loading} fallback={<Loader />}>
         <Show when={jobs()} keyed>
@@ -80,10 +80,10 @@ export const Jobs: Component = () => {
                             </td>
                             <td>{job.report}</td>
                             <td>
-                              <span class="icon is-left is-clickable" onClick={() => onClone(job)}>
+                              <span class="icon is-left is-clickable" onClick={() => void onClone(job)}>
                                 <i class="fas fa-clone" />
                               </span>
-                              <span class="icon is-left is-clickable" onClick={() => onDelete(job.id)}>
+                              <span class="icon is-left is-clickable" onClick={() => void onDelete(job.id)}>
                                 <i class="fas fa-trash" />
                               </span>
                             </td>

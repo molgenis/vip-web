@@ -20,6 +20,7 @@ export const JobUpdateForm: Component<{
   onSubmit: (event: JobUpdateEvent) => void;
   onCancel: () => void;
 }> = (props) => {
+  // eslint-disable-next-line
   const [fields, setFields] = createStore(props.job);
 
   const handleSubmit = (event: Event) => {
