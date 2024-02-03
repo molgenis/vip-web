@@ -76,6 +76,32 @@ export class MockApiClient implements Api {
       sampleFilterClasses: [SampleClasses.U1, SampleClasses.U2, SampleClasses.U3],
     };
     this.jobs.push(jobResource);
+
+    setTimeout(() => {
+      const index = this.jobs.findIndex((job) => job.id === id);
+      if (index !== -1) {
+        this.jobs[index] = { ...this.jobs[index], status: JobStatus.PENDING };
+
+        setTimeout(() => {
+          const index = this.jobs.findIndex((job) => job.id === id);
+          if (index !== -1) {
+            this.jobs[index] = { ...this.jobs[index], status: JobStatus.RUNNING };
+
+            setTimeout(() => {
+              const index = this.jobs.findIndex((job) => job.id === id);
+              if (index !== -1) {
+                this.jobs[index] = {
+                  ...this.jobs[index],
+                  status: JobStatus.COMPLETED,
+                  report: `${this.jobs[index].vcf.name}.html`,
+                };
+              }
+            }, 5000);
+          }
+        }, 5000);
+      }
+    }, 5000);
+
     return Promise.resolve(id);
   }
 

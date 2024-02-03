@@ -1,4 +1,4 @@
-import { Component, createResource, For, Show } from "solid-js";
+import { Component, createResource, For, onMount, Show } from "solid-js";
 import { Loader } from "../components/Loader.tsx";
 import { VcfUpload, VcfUploadEvent } from "../components/VcfUpload.tsx";
 import { useNavigate } from "@solidjs/router";
@@ -8,6 +8,18 @@ export const Jobs: Component = () => {
   const navigate = useNavigate();
 
   const [jobs, { refetch }] = createResource({}, api.fetchJobs);
+
+  onMount(() => {
+    let intervalId: number | undefined;
+    document.addEventListener("visibilitychange", () => {
+      if (document.hidden) {
+        if (intervalId !== undefined) clearInterval(intervalId);
+      } else {
+        intervalId = setInterval(() => refetch(), 2000);
+      }
+    });
+    if (!document.hidden) intervalId = setInterval(() => refetch(), 2000);
+  });
 
   const onUpload = async (event: VcfUploadEvent) => {
     const vcf = await api.fetchVcf(event.vcfId);
@@ -63,22 +75,27 @@ export const Jobs: Component = () => {
                                 second: "2-digit",
                               })}
                             </td>
-                            <td>
-                              <span
-                                classList={{
-                                  "has-background-info":
-                                    job.status === JobStatus.CREATED ||
-                                    job.status === JobStatus.SUBMITTED ||
-                                    job.status === JobStatus.PENDING ||
-                                    job.status === JobStatus.RUNNING,
-                                  "has-background-success": job.status === JobStatus.COMPLETED,
-                                  "has-background-danger": job.status === JobStatus.FAILED,
-                                }}
-                              >
-                                {job.status}
-                              </span>
+                            <td
+                              classList={{
+                                "has-background-info":
+                                  job.status === JobStatus.CREATED ||
+                                  job.status === JobStatus.SUBMITTED ||
+                                  job.status === JobStatus.PENDING ||
+                                  job.status === JobStatus.RUNNING,
+                                "has-background-success": job.status === JobStatus.COMPLETED,
+                                "has-background-danger":
+                                  job.status === JobStatus.CANCELLED || job.status === JobStatus.FAILED,
+                              }}
+                            >
+                              {job.status}
                             </td>
-                            <td>{job.report}</td>
+                            <td>
+                              <Show when={job.report !== undefined}>
+                                <a href={job.report} target="_blank" rel="noopener noreferrer nofollow">
+                                  {job.report}
+                                </a>
+                              </Show>
+                            </td>
                             <td>
                               <span class="icon is-left is-clickable" onClick={() => void onClone(job)}>
                                 <i class="fas fa-clone" />
