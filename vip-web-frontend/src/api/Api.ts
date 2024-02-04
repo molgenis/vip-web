@@ -46,8 +46,8 @@ export enum AffectedStatus {
 }
 
 export enum SequencingMethod {
-  WES = "WES",
-  WGS = "WGS",
+  WES = "Whole exome sequencing",
+  WGS = "Whole genome sequencing",
 }
 
 export enum Assembly {
@@ -77,16 +77,16 @@ export type Sample = {
 };
 
 export enum Classes {
-  LQ = "LQ",
-  B = "B",
-  LB = "LB",
-  VUS = "VUS",
-  LP = "LP",
-  P = "P",
+  LQ = "Low quality",
+  B = "Benign",
+  LB = "Likely benign",
+  VUS = "Variant of uncertain significance",
+  LP = "Likely pathogenic",
+  P = "Pathogenic",
 }
 
 export enum SampleClasses {
-  U1 = "U1",
-  U2 = "U2",
-  U3 = "U3",
+  U1 = "Usable: probably",
+  U2 = "Usable: maybe",
+  U3 = "Usable: probably not",
 }

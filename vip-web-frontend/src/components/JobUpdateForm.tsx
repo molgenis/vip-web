@@ -54,14 +54,15 @@ export const JobUpdateForm: Component<{
                         class="mr-1"
                         type="radio"
                         value={key}
-                        checked={value === fields.sequencingMethod}
+                        checked={key === fields.sequencingMethod}
                         onInput={(e) => setFields("sequencingMethod", e.target.value as SequencingMethod)}
                       />
-                      {value}
+                      <abbr title={value}>{key}</abbr>
                     </label>
                   )}
                 </For>
               </div>
+              <p class="help">Sequencing method used to generate data</p>
             </div>
           </div>
         </div>
@@ -80,7 +81,7 @@ export const JobUpdateForm: Component<{
                         class="mr-1"
                         type="radio"
                         value={key}
-                        checked={value === fields.assembly}
+                        checked={key === fields.assembly}
                         onInput={(e) => setFields("assembly", e.target.value as Assembly)}
                       />
                       {value}
@@ -88,6 +89,7 @@ export const JobUpdateForm: Component<{
                   )}
                 </For>
               </div>
+              <p class="help">Human genome reference assembly used to generate data</p>
             </div>
           </div>
         </div>
@@ -113,12 +115,16 @@ export const JobUpdateForm: Component<{
                         onInput={(e) => setFields("samples", index(), "proband", e.target.checked)}
                       />
                     </div>
+                    <p class="help">
+                      Is this sample the index case: the patient or member of the family that brings a family under
+                      study?
+                    </p>
                   </div>
                 </div>
               </div>
               {/* parents */}
               <div class="field is-horizontal">
-                <div class="field-label">
+                <div class="field-label is-normal">
                   <label class="label">Parents</label>
                 </div>
                 <div class="field-body">
@@ -173,8 +179,8 @@ export const JobUpdateForm: Component<{
                           <input
                             class="mr-1"
                             type="radio"
-                            name={key}
-                            checked={sample.sex === value}
+                            value={key}
+                            checked={key === fields.samples[index()].sex}
                             onInput={(e) => setFields("samples", index(), "sex", e.target.value as Sex)}
                           />
                           {value}
@@ -199,8 +205,8 @@ export const JobUpdateForm: Component<{
                           <input
                             class="mr-1"
                             type="radio"
-                            name={key}
-                            checked={sample.affected === value}
+                            value={key}
+                            checked={key === fields.samples[index()].affected}
                             onInput={(e) => setFields("samples", index(), "affected", e.target.value as AffectedStatus)}
                           />
                           {value}
@@ -213,8 +219,8 @@ export const JobUpdateForm: Component<{
             </div>
             {/* HPO ids */}
             <div class="field is-horizontal">
-              <div class="field-label">
-                <label class="label">HPO ids</label>
+              <div class="field-label is-normal">
+                <label class="label">HPO terms</label>
               </div>
               <div class="field-body">
                 <div class="field is-narrow">
@@ -225,6 +231,13 @@ export const JobUpdateForm: Component<{
                       onInput={(e) => setFields("samples", index(), "hpo_ids", e.target.value)}
                     />
                   </div>
+                  <p class="help">
+                    Comma-separated list of{" "}
+                    <a href="https://hpo.jax.org/" target="_blank" rel="noopener noreferrer nofollow">
+                      HPO
+                    </a>{" "}
+                    term identifiers, for example HP:0001166,HP:0001519
+                  </p>
                 </div>
               </div>
             </div>
@@ -241,17 +254,27 @@ export const JobUpdateForm: Component<{
           <div class="field-body">
             <div class="field is-narrow">
               <div class="field is-horizontal">
-                <For each={Object.values(Classes)}>
-                  {(value) => (
+                <For each={Object.entries(Classes)}>
+                  {([key, value]) => (
                     <div class="control mr-3">
                       <label class="checkbox">
-                        <input type="checkbox" class="mr-1" checked={fields.filterClasses.includes(value)} />
-                        {value}
+                        <input type="checkbox" class="mr-1" value={key} checked={fields.filterClasses.includes(key)} />
+                        <abbr title={value}>{key}</abbr>
                       </label>
                     </div>
                   )}
                 </For>
               </div>
+              <p class="help">
+                For details, see the{" "}
+                <a
+                  href="https://molgenis.github.io/vip/advanced/classification_trees/#variant-consequences"
+                  target="_blank"
+                  rel="noopener noreferrer nofollow"
+                >
+                  documentation
+                </a>
+              </p>
             </div>
           </div>
         </div>
@@ -263,17 +286,32 @@ export const JobUpdateForm: Component<{
           <div class="field-body">
             <div class="field is-narrow">
               <div class="field is-horizontal">
-                <For each={Object.values(SampleClasses)}>
-                  {(value) => (
+                <For each={Object.entries(SampleClasses)}>
+                  {([key, value]) => (
                     <div class="control mr-3">
                       <label class="checkbox">
-                        <input type="checkbox" class="mr-1" checked={fields.sampleFilterClasses.includes(value)} />
-                        {value}
+                        <input
+                          type="checkbox"
+                          class="mr-1"
+                          value={key}
+                          checked={fields.sampleFilterClasses.includes(key)}
+                        />
+                        <abbr title={value}>{key}</abbr>
                       </label>
                     </div>
                   )}
                 </For>
               </div>
+              <p class="help">
+                For details, see the{" "}
+                <a
+                  href="https://molgenis.github.io/vip/advanced/classification_trees/#variant-consequences-samples"
+                  target="_blank"
+                  rel="noopener noreferrer nofollow"
+                >
+                  documentation
+                </a>
+              </p>
             </div>
           </div>
         </div>
