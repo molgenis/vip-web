@@ -1,0 +1,17 @@
+{
+  "name": "Noop",
+  "description": "No operation classifier",
+  "defaultFilterClasses": [
+    "KEEP"
+  ],
+  "tree": {
+    "rootNode": "exit_keep",
+    "nodes": {
+      "exit_keep": {
+        "description": "KEEP",
+        "type": "LEAF",
+        "class": "KEEP"
+      }
+    }
+  }
+}

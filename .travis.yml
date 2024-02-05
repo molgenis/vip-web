@@ -1,0 +1,14 @@
+os: linux
+dist: jammy
+language: java
+jdk: openjdk17
+cache:
+  directories:
+    - "$HOME/.m2"
+branches:
+  only:
+    - main
+    - /^v\d+\.\d+(\.\d+)?(-\S*)?$/
+
+script:
+  - mvn clean install

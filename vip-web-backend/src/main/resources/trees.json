@@ -1,0 +1,9 @@
+{
+  "variants": [
+    "src/main/resources/tree/variants_capice.json",
+    "src/main/resources/tree/variants_noop.json"
+  ],
+  "samples": [
+    "src/main/resources/tree/samples_genotype.json"
+  ]
+}

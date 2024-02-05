@@ -1,0 +1,26 @@
+{
+  "jobs": [
+    {
+      "vcf": "src/main/resources/vcf/grch38_trio.vcf",
+      "sequencingMethod": "WES",
+      "assembly": "GRCh38",
+      "variantFilterClasses": [
+        "LP"
+      ],
+      "samples": [
+        {
+          "individualId": "SAMPLE0",
+          "paternalId": null,
+          "maternalId": null,
+          "proband": true,
+          "sex": "UNKNOWN",
+          "affected": "TRUE",
+          "hpoTerms": [
+            "HP:0012432",
+            "HP:0012444"
+          ]
+        }
+      ]
+    }
+  ]
+}
