@@ -9,22 +9,6 @@ export const Jobs: Component = () => {
   const [state] = useStore();
   const [jobs, { refetch }] = createResource({}, api.fetchJobs);
 
-  const onReportDownload = async (jobId: JobId) => {
-    const data = await api.fetchJobReport(jobId);
-    const href = window.URL.createObjectURL(data);
-
-    const anchorElement = document.createElement("a");
-
-    anchorElement.href = href;
-    anchorElement.download = "report.html";
-
-    document.body.appendChild(anchorElement);
-    anchorElement.click();
-
-    document.body.removeChild(anchorElement);
-    window.URL.revokeObjectURL(href);
-  };
-
   const onClone = (jobId: JobId) => {
     navigate(`/jobs/clone/${jobId}`);
   };
@@ -123,13 +107,11 @@ export const Jobs: Component = () => {
                                     </td>
                                     <td>
                                       <Show when={job.report} fallback={<span class="icon" />}>
-                                        <span
-                                          class="icon is-left is-clickable"
-                                          title="Download report"
-                                          onClick={() => void onReportDownload(job.id)}
-                                        >
-                                          <i class="fas fa-download" />
-                                        </span>
+                                        <a href={`/api/job/${job.id}/report`}>
+                                          <span class="icon is-left is-clickable" title="Download report">
+                                            <i class="fas fa-download" />
+                                          </span>
+                                        </a>
                                       </Show>
                                       <span
                                         class="icon is-left is-clickable"

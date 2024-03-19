@@ -1,6 +1,14 @@
 package org.molgenis.vipweb.controller;
 
+import static java.nio.channels.Channels.newChannel;
+import static org.springframework.http.HttpHeaders.CONTENT_DISPOSITION;
+import static org.springframework.http.HttpHeaders.CONTENT_TYPE;
+
 import jakarta.servlet.http.HttpServletRequest;
+import java.nio.ByteBuffer;
+import java.nio.channels.ReadableByteChannel;
+import java.nio.channels.WritableByteChannel;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.molgenis.vipweb.BlobStore;
 import org.molgenis.vipweb.FileUploadUtils;
@@ -14,19 +22,12 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.http.ContentDisposition;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.method.annotation.StreamingResponseBody;
-
-import java.nio.ByteBuffer;
-import java.nio.channels.ReadableByteChannel;
-import java.nio.channels.WritableByteChannel;
-import java.util.List;
-
-import static java.nio.channels.Channels.newChannel;
-import static org.springframework.http.HttpHeaders.CONTENT_DISPOSITION;
-import static org.springframework.http.HttpHeaders.CONTENT_TYPE;
 
 @RestController
 @RequestMapping("/api/job")
@@ -144,9 +145,13 @@ public class JobController implements ApiController {
 
     private ResponseEntity<StreamingResponseBody> createFileDownloadResponse(
             FileDto file, String filename) {
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentDisposition(
+                ContentDisposition.builder("attachment").filename(filename).build());
+        headers.setContentLength(file.getSize());
+
         ResponseEntity.BodyBuilder builder = ResponseEntity.ok();
-        builder.header(CONTENT_DISPOSITION, "attachment; filename=\"%s\"".formatted(filename));
-        builder.contentLength(file.getSize());
+        builder.headers(headers);
 
         return builder.body(
                 outputStream -> {
