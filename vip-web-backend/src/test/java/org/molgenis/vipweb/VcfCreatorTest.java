@@ -1,23 +1,23 @@
 package org.molgenis.vipweb;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
 class VcfCreatorTest {
-  private VcfCreator vcfCreator;
+    private VcfCreator vcfCreator;
 
-  @BeforeEach
-  void setUp() {
-    vcfCreator = new VcfCreator();
-  }
+    @BeforeEach
+    void setUp() {
+        vcfCreator = new VcfCreator();
+    }
 
-  @Test
-  void create() {
-    String expectedVcf =
-        """
+    @Test
+    void create() {
+        String expectedVcf =
+                """
                         ##fileformat=VCFv4.2
                         ##contig=<ID=chr1,length=248956422>
                         ##contig=<ID=chr2,length=242193529>
@@ -50,31 +50,36 @@ class VcfCreatorTest {
                         chr1\t37358\t.\tGC\tC\t.\t.\t.\tGT\t1|1
                         chr14\t74527358\t.\tG\tA\t.\t.\t.\tGT\t1|1
                         """;
-    assertEquals(expectedVcf, vcfCreator.create("1-37358-GC-C\n14-74527358-G-A\n1-27358-GC-C"));
-  }
+        assertEquals(expectedVcf, vcfCreator.create("1-37358-GC-C\n14-74527358-G-A\n1-27358-GC-C"));
+    }
 
-  @Test
-  void createInvalidFormat() {
-    assertThrows(VcfParseException.class, () -> vcfCreator.create("14 74527358 G>A"));
-  }
+    @Test
+    void createInvalidFormat() {
+        assertThrows(VcfParseException.class, () -> vcfCreator.create("14 74527358 G>A"));
+    }
 
-  @Test
-  void createInvalidChromosome() {
-    assertThrows(VcfParseException.class, () -> vcfCreator.create("23-37358-GC-C"));
-  }
+    @Test
+    void createInvalidChromosome() {
+        assertThrows(VcfParseException.class, () -> vcfCreator.create("23-37358-GC-C"));
+    }
 
-  @Test
-  void createInvalidPosition() {
-    assertThrows(VcfParseException.class, () -> vcfCreator.create("1-invalid-GC-C"));
-  }
+    @Test
+    void createInvalidPosition() {
+        assertThrows(VcfParseException.class, () -> vcfCreator.create("1-invalid-GC-C"));
+    }
 
-  @Test
-  void createInvalidReferenceBases() {
-    assertThrows(VcfParseException.class, () -> vcfCreator.create("1-37358-XY-C"));
-  }
+    @Test
+    void createInvalidReferenceBases() {
+        assertThrows(VcfParseException.class, () -> vcfCreator.create("1-37358-XY-C"));
+    }
 
-  @Test
-  void createInvalidAlternateBases() {
-    assertThrows(VcfParseException.class, () -> vcfCreator.create("1-37358-GC-Z"));
-  }
+    @Test
+    void createInvalidAlternateBases() {
+        assertThrows(VcfParseException.class, () -> vcfCreator.create("1-37358-GC-Z"));
+    }
+
+    @Test
+    void createInvalidReferenceAlternateBases() {
+        assertThrows(VcfParseException.class, () -> vcfCreator.create("1-37358-A-A"));
+    }
 }

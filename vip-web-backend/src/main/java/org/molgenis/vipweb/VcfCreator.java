@@ -1,9 +1,8 @@
 package org.molgenis.vipweb;
 
+import java.util.*;
 import lombok.Builder;
 import org.springframework.stereotype.Component;
-
-import java.util.*;
 
 @Component
 public class VcfCreator {
@@ -80,6 +79,11 @@ public class VcfCreator {
         if (alt.isEmpty() || !alt.matches("[ACTG]+")) {
             throw new VcfParseException(
                     "variant '%s' alternate base(s) '%s' are invalid".formatted(variantStr, alt));
+        }
+
+        if (ref.equals(alt)) {
+            throw new VcfParseException(
+                    "variant '%s' reference base(s) '%s' must differ from alternate base(s) '%s'".formatted(variantStr, ref, alt));
         }
 
         return Variant.builder()
