@@ -31,6 +31,7 @@ export const Home: Component = () => {
                     Features include:
                   </p>
                   <ul>
+                    <li>Analysis of single patients, duo/trio and complex family pedigrees</li>
                     <li>
                       Workflows for a broad range of input file types: <strong>bam</strong>, <strong>cram</strong>,{" "}
                       <strong>fastq</strong>, <strong>g.vcf</strong>, <strong>vcf</strong>
@@ -67,11 +68,7 @@ export const Home: Component = () => {
               <div class="block">
                 <div class="card">
                   <div class="card-content">
-                    <div class="media">
-                      <div class="media-content">
-                        <p class="title is-4">Web application</p>
-                      </div>
-                    </div>
+                    <p class="title is-4">Web application</p>
                     <div class="content">
                       Demonstrates the VCF workflow: see example reports or run with your own small data
                     </div>
@@ -91,11 +88,7 @@ export const Home: Component = () => {
               <div class="block">
                 <div class="card mt-3">
                   <div class="card-content">
-                    <div class="media">
-                      <div class="media-content">
-                        <p class="title is-4">Command-line application</p>
-                      </div>
-                    </div>
+                    <p class="title is-4">Command-line application</p>
                     <div class="content">
                       Install and use VIP on your own system: enables all workflows and allows running with large data
                     </div>

@@ -56,7 +56,7 @@ const App: Component = () => {
       <Show when={error()} keyed>
         {(error) => <ErrorNotification error={error} onClose={() => setError()} />}
       </Show>
-      <div class="container is-fluid is-clipped">
+      <div class="container is-fluid">
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/vcf">
