@@ -115,6 +115,64 @@ export const Home: Component = () => {
               </div>
             </div>
           </div>
+          <hr />
+          <div class="columns mt-3">
+            <div class="column is-half">
+              <article class="message is-info">
+                <div class="message-body">
+                  <p class="title is-6">CAPICE</p>
+                  <div class="content">
+                    <p>
+                      At the heart of VIP lies CAPICE, a machine-learning-based method for prioritizing pathogenic
+                      variants, including SNVs and short InDels. CAPICE outperforms the best general (
+                      <a href="http://dx.doi.org/10.1093/nar/gky1016">CADD</a>,{" "}
+                      <a href="https://doi.org/10.1186/s13059-016-1141-7">GAVIN</a>) and consequence-type-specific (
+                      <a href="https://doi.org/10.1016/j.ajhg.2016.08.016">REVEL</a>,{" "}
+                      <a href="https://doi.org/10.1016/j.ajhg.2018.08.005">ClinPred</a>) computational prediction
+                      methods, for both rare and ultra-rare variants.
+                    </p>
+                    <span class="is-size-7">
+                      <a href="https://doi.org/10.1186/s13073-020-00775-w">
+                        Li, S., van der Velde, K.J., de Ridder, D. et al. CAPICE: a computational method for
+                        Consequence-Agnostic Pathogenicity Interpretation of Clinical Exome variations. Genome Med 12,
+                        75 (2020)
+                      </a>
+                    </span>
+                  </div>
+                </div>
+              </article>
+            </div>
+            <div class="column is-half">
+              <article class="message is-info">
+                <div class="message-body">
+                  <p class="title is-6">Annotations</p>
+                  <div class="content">
+                    <p>
+                      VIP provides an extensive up-to-date set of both coding and non-coding annotations. Annotations
+                      include <a href="https://doi.org/10.1038/s41586-020-2308-7">gnomAD</a>,{" "}
+                      <a href="https://doi.org/10.1093/nar/gkv1222">ClinVar</a>,{" "}
+                      <a href="https://doi.org/10.1101/gr.3715005">phyloP</a>,{" "}
+                      <a href="https://doi.org/10.1093/bioinformatics/btad280">AlphScore</a>,{" "}
+                      <a href="https://doi.org/10.1093/bioinformatics/btv009">FATHMM-MKL</a>,{" "}
+                      <a href="https://doi.org/10.1038/s41467-019-13212-3">ncER</a>,{" "}
+                      <a href="https://doi.org/10.1016/j.cell.2018.12.015">SpliceAI</a>,{" "}
+                      <a href="https://doi.org/10.1016/j.ajhg.2016.07.005">REMM</a>,{" "}
+                      <a href="https://doi.org/10.1093/nar/gkg509">SIFT</a> and{" "}
+                      <a href="https://doi.org/10.1002/0471142905.hg0720s76">PolyPhen</a>. Inheritance annotations are
+                      provided by our custom{" "}
+                      <a href="https://github.com/molgenis/vip-inheritance-matcher">inheritance matcher</a> and include
+                      denovo, compound and inheritance pattern match information. Coding and non-coding structural
+                      variant annotations are provided by <a href="https://10.1093/bioinformatics/bty304">AnnotSV</a>.
+                    </p>
+                    <span class="is-size-7">
+                      Consult the <a href="https://molgenis.github.io/vip/advanced/annotations/">documentation</a> for
+                      the full list of annotations.
+                    </span>
+                  </div>
+                </div>
+              </article>
+            </div>
+          </div>
         </div>
       </div>
     </>
