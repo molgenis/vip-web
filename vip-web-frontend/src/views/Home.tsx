@@ -1,7 +1,7 @@
 import { Component } from "solid-js";
 import { useNavigate } from "@solidjs/router";
 
-export const Home: Component = () => {
+const Home: Component = () => {
   const navigate = useNavigate();
 
   const handleLaunchClick = (event: Event) => {
@@ -178,3 +178,5 @@ export const Home: Component = () => {
     </>
   );
 };
+
+export default Home;

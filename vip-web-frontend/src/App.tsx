@@ -1,20 +1,17 @@
-import { Component, createSignal, onMount, Show } from "solid-js";
-import { Route, Routes, useNavigate } from "@solidjs/router";
-import { Home } from "./views/Home";
-import { Jobs } from "./views/Jobs.tsx";
-import { JobCreateForm } from "./views/JobCreateForm.tsx";
-import VcfData from "./views/data/VcfData.tsx";
-import JobData from "./views/data/JobData.tsx";
-import { JobCloneForm } from "./views/JobCloneForm.tsx";
-import { LoginModal } from "./components/LoginModal.tsx";
+import { createSignal, onMount, ParentComponent, Show } from "solid-js";
+import { useNavigate } from "@solidjs/router";
 import { useStore } from "./store/store.tsx";
 import { User } from "./api/Api.ts";
-import { VcfCreate } from "./views/VcfCreate.tsx";
 import { Navbar } from "./components/Navbar.tsx";
-import { Error, ErrorNotification } from "./components/ErrorNotification.tsx";
+import Notification from "./components/bulma/notification.tsx";
 import api from "./api/ApiClient.ts";
+import LoginModal from "./components/LoginModal.tsx";
 
-const App: Component = () => {
+export type Error = {
+  message: string;
+};
+
+export const App: ParentComponent = (props) => {
   const navigate = useNavigate();
   const [, actions] = useStore();
   const [isModalOpen, setIsModalOpen] = createSignal<boolean>(false);
@@ -54,28 +51,16 @@ const App: Component = () => {
     <>
       <Navbar onLogin={() => setIsModalOpen(true)} onLogout={() => void handleLogout()} />
       <Show when={error()} keyed>
-        {(error) => <ErrorNotification error={error} onClose={() => setError()} />}
+        {(error) => (
+          <Notification type="danger" onClose={() => setError()}>
+            {error.message}
+          </Notification>
+        )}
       </Show>
-      <div class="container is-fluid">
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/vcf">
-            <Route path="/create" element={<VcfCreate />} />
-          </Route>
-          <Route path="/jobs">
-            <Route path="/" element={<Jobs />} />
-            <Route path="/create/:vcfId" data={VcfData} element={<JobCreateForm />} />
-            <Route path="/clone/:jobId" data={JobData} element={<JobCloneForm />} />
-          </Route>
-        </Routes>
-      </div>
-      <LoginModal
-        active={isModalOpen()}
-        onClose={() => setIsModalOpen(false)}
-        onLogIn={(user: User) => handleLogin(user)}
-      />
+      <div class="container is-fluid">{props.children}</div>
+      <Show when={isModalOpen()}>
+        <LoginModal onClose={() => setIsModalOpen(false)} onLogIn={(user: User) => handleLogin(user)} />
+      </Show>
     </>
   );
 };
-
-export default App;

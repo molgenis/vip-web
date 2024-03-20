@@ -1,11 +1,11 @@
 import { Component, createResource, Show } from "solid-js";
-import { useNavigate, useRouteData } from "@solidjs/router";
+import { createAsync, RouteSectionProps, useNavigate } from "@solidjs/router";
 import { Loader } from "../components/Loader.tsx";
 import { FilterTree, Vcf } from "../api/Api.ts";
-import { VcfRouteData } from "./data/VcfData.tsx";
 
 import { JobCreateEvent, JobForm, JobFormData } from "../components/JobForm.tsx";
 import api from "../api/ApiClient.ts";
+import { getVcf } from "./data/data.tsx";
 
 function createJob(vcf: Vcf, variantFilterTree: FilterTree, sampleFilterTree: FilterTree): JobFormData {
   return {
@@ -32,8 +32,8 @@ function createJob(vcf: Vcf, variantFilterTree: FilterTree, sampleFilterTree: Fi
   };
 }
 
-export const JobCreateForm: Component = () => {
-  const { vcf } = useRouteData<VcfRouteData>();
+const JobCreateForm: Component<RouteSectionProps<Promise<Vcf>>> = (props) => {
+  const vcf = createAsync(() => getVcf(Number(props.params.vcfId)));
   const navigate = useNavigate();
 
   const [variantFilterTree] = createResource({}, () => api.fetchDefaultFilterTree("VARIANT"));
@@ -56,7 +56,7 @@ export const JobCreateForm: Component = () => {
     <div class="columns is-centered mt-1">
       <div class="column is-two-thirds-widescreen">
         <h1 class="title is-4">New Job (Step 2 of 2)</h1>
-        <Show when={!vcf.loading && !variantFilterTree.loading && !sampleFilterTree.loading} fallback={<Loader />}>
+        <Show when={!variantFilterTree.loading && !sampleFilterTree.loading} fallback={<Loader />}>
           <Show when={vcf()} keyed>
             {(vcf) => (
               <Show when={variantFilterTree()} keyed>
@@ -79,3 +79,5 @@ export const JobCreateForm: Component = () => {
     </div>
   );
 };
+
+export default JobCreateForm;

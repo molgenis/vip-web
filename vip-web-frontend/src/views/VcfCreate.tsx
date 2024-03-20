@@ -6,7 +6,7 @@ import { ApiError, VcfId } from "../api/Api.ts";
 import axios from "axios";
 import api from "../api/ApiClient.ts";
 
-export const VcfCreate: Component = () => {
+const VcfCreate: Component = () => {
   const [state, actions] = useStore();
   const navigate = useNavigate();
 
@@ -97,3 +97,5 @@ export const VcfCreate: Component = () => {
     </div>
   );
 };
+
+export default VcfCreate;
