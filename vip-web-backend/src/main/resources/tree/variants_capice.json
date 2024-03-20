@@ -1,0 +1,46 @@
+{
+  "name": "CAPICE",
+  "description": "CAPICE classifier",
+  "defaultFilterClasses": [
+    "VUS",
+    "LP"
+  ],
+  "tree": {
+    "rootNode": "capice",
+    "nodes": {
+      "capice": {
+        "description": "CAPICE prediction > 0.5",
+        "type": "BOOL",
+        "query": {
+          "field": "INFO/CSQ/CAPICE_SC",
+          "operator": ">",
+          "value": 0.5
+        },
+        "outcomeTrue": {
+          "nextNode": "exit_lp"
+        },
+        "outcomeFalse": {
+          "nextNode": "exit_lb"
+        },
+        "outcomeMissing": {
+          "nextNode": "exit_vus"
+        }
+      },
+      "exit_lb": {
+        "description": "Likely Benign",
+        "type": "LEAF",
+        "class": "LB"
+      },
+      "exit_vus": {
+        "description": "Uncertain Significance",
+        "type": "LEAF",
+        "class": "VUS"
+      },
+      "exit_lp": {
+        "description": "Likely Pathogenic",
+        "type": "LEAF",
+        "class": "LP"
+      }
+    }
+  }
+}

@@ -1,0 +1,59 @@
+{
+  "name": "Genotype",
+  "description": "Genotype classifier",
+  "defaultFilterClasses": [
+    "VUS",
+    "LP"
+  ],
+  "tree": {
+    "rootNode": "gt",
+    "nodes": {
+      "gt": {
+        "description": "Genotype",
+        "type": "CATEGORICAL",
+        "field": "FORMAT/GENOTYPE/TYPE",
+        "outcomeMap": {
+          "HET": {
+            "nextNode": "exit_vus"
+          },
+          "HOM_REF": {
+            "nextNode": "exit_lb"
+          },
+          "HOM_VAR": {
+            "nextNode": "exit_vus"
+          },
+          "MIXED": {
+            "nextNode": "exit_vus"
+          },
+          "NO_CALL": {
+            "nextNode": "exit_lb"
+          },
+          "UNAVAILABLE": {
+            "nextNode": "exit_lb"
+          }
+        },
+        "outcomeMissing": {
+          "nextNode": "exit_vus"
+        },
+        "outcomeDefault": {
+          "nextNode": "exit_vus"
+        }
+      },
+      "exit_lb": {
+        "description": "Likely Benign",
+        "type": "LEAF",
+        "class": "LB"
+      },
+      "exit_vus": {
+        "description": "Uncertain Significance",
+        "type": "LEAF",
+        "class": "VUS"
+      },
+      "exit_lp": {
+        "description": "Likely Pathogenic",
+        "type": "LEAF",
+        "class": "LP"
+      }
+    }
+  }
+}

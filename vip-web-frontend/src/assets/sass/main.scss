@@ -1,0 +1,11 @@
+@import "bulma/bulma";
+@import '@creativebulma/bulma-tagsinput/src/sass/index';
+@import '@creativebulma/bulma-divider/src/sass/index';
+
+.is-transparent {
+  background-color: transparent !important;
+}
+
+input[type=checkbox] {
+  cursor: pointer;
+}
