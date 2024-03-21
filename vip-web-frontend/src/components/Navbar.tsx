@@ -1,6 +1,5 @@
 import { Component, Show } from "solid-js";
-import { Link } from "@solidjs/router";
-import logoImgUrl from "../assets/img/molgenis_logo_white.png";
+import logoImgUrl from "../assets/img/logo.png";
 import { useStore } from "../store/store.tsx";
 
 export const Navbar: Component<{
@@ -12,9 +11,9 @@ export const Navbar: Component<{
   return (
     <nav class="navbar is-fixed-top is-info" role="navigation" aria-label="main navigation">
       <div class="navbar-brand">
-        <Link class="navbar-item" href="/">
+        <a class="navbar-item" href="/">
           <img src={logoImgUrl} alt="Logo" />
-        </Link>
+        </a>
       </div>
       <div class="navbar-menu">
         <div class="navbar-start">

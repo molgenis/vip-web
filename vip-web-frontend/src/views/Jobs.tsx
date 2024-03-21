@@ -4,7 +4,7 @@ import { Job, JobId } from "../api/Api.ts";
 import api from "../api/ApiClient.ts";
 import { useStore } from "../store/store.tsx";
 
-export const Jobs: Component = () => {
+const Jobs: Component = () => {
   const navigate = useNavigate();
   const [state] = useStore();
   const [jobs, { refetch }] = createResource({}, api.fetchJobs);
@@ -156,3 +156,5 @@ export const Jobs: Component = () => {
     </>
   );
 };
+
+export default Jobs;

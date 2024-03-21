@@ -1,11 +1,11 @@
 import { Component, Show } from "solid-js";
-import { useNavigate, useRouteData } from "@solidjs/router";
+import { createAsync, RouteSectionProps, useNavigate } from "@solidjs/router";
 import { Loader } from "../components/Loader.tsx";
 import { Job } from "../api/Api.ts";
-import { JobRouteData } from "./data/JobData.tsx";
 import { JobCreateEvent, JobForm, JobFormData } from "../components/JobForm.tsx";
 import { useStore } from "../store/store.tsx";
 import api from "../api/ApiClient.ts";
+import { getJob } from "./data/data.tsx";
 
 function cloneJob(job: Job): JobFormData {
   return {
@@ -22,8 +22,8 @@ function cloneJob(job: Job): JobFormData {
   };
 }
 
-export const JobCloneForm: Component = () => {
-  const { job } = useRouteData<JobRouteData>();
+const JobCloneForm: Component<RouteSectionProps<Promise<Job>>> = (props) => {
+  const job = createAsync(() => getJob(Number(props.params.jobId)));
   const [state, actions] = useStore();
   const navigate = useNavigate();
 
@@ -53,14 +53,14 @@ export const JobCloneForm: Component = () => {
     <div class="columns is-centered mt-1">
       <div class="column is-two-thirds-widescreen">
         <h1 class="title is-4">New Job</h1>
-        <Show when={!job.loading} fallback={<Loader />}>
-          <Show when={job()} fallback={<Loader />} keyed>
-            {(job) => (
-              <JobForm job={cloneJob(job)} onSubmit={(event) => void handleSubmit(event)} onCancel={handleCancel} />
-            )}
-          </Show>
+        <Show when={job()} fallback={<Loader />} keyed>
+          {(job) => (
+            <JobForm job={cloneJob(job)} onSubmit={(event) => void handleSubmit(event)} onCancel={handleCancel} />
+          )}
         </Show>
       </div>
     </div>
   );
 };
+
+export default JobCloneForm;
