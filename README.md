@@ -61,7 +61,7 @@ VIPWEB_REMEMBERME_KEY=<key> \
 VIPWEB_SQL_INIT_MODE=always \
 VIPWEB_VIPBOT_USERNAME=<username> \
 VIPWEB_VIPBOT_PASSWORD=<password> \
-java -jar -Dspring.profiles.active=production vip-web-backend-0.0.1-SNAPSHOT.jar
+java -jar -Dspring.profiles.active=production vip-web-backend-<version>.jar
 
 ```
 
