@@ -1,32 +1,28 @@
 package org.molgenis.vipweb.security;
 
+import static org.molgenis.vipweb.model.constants.Role.ROLE_USER;
+
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.molgenis.vipweb.model.dto.UserCreateDto;
 import org.molgenis.vipweb.model.dto.UserDetailsDto;
 import org.molgenis.vipweb.model.dto.UserDto;
 import org.molgenis.vipweb.model.dto.UserSignupDto;
+import org.molgenis.vipweb.model.mapper.UserDetailsMapper;
 import org.molgenis.vipweb.service.UserService;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.List;
-
-import static org.molgenis.vipweb.model.constants.Role.ROLE_USER;
 
 @Service
 @RequiredArgsConstructor
 public class AuthenticationService {
     private final UserService userService;
+    private final UserDetailsMapper userDetailsMapper;
 
     public UserDetailsDto mapUserDetails(UserDetails userDetails) {
-        return UserDetailsDto.builder()
-                .username(userDetails.getUsername())
-                .authorities(
-                        userDetails.getAuthorities().stream().map(GrantedAuthority::getAuthority).toList())
-                .build();
+        return userDetailsMapper.mapUserDetails(userDetails);
     }
 
     @Transactional
