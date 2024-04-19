@@ -1,6 +1,5 @@
 package org.molgenis.vipweb;
 
-import htsjdk.tribble.TribbleException;
 import htsjdk.variant.vcf.VCFContigHeaderLine;
 import htsjdk.variant.vcf.VCFHeader;
 import htsjdk.variant.vcf.VCFIterator;
@@ -20,14 +19,15 @@ import java.util.Map;
 @RequiredArgsConstructor
 public class VcfAnalyzer {
 
+    private final VcfValidator vcfValidator;
+
     public AnalyzedVcf analyze(Path vcfPath) {
+        vcfValidator.validate(vcfPath);
+
         AnalyzedVcf analyzedVcf;
         try (VCFIterator vcfIterator = new VCFIteratorBuilder().open(vcfPath)) {
             VCFHeader vcfHeader = vcfIterator.getHeader();
             analyzedVcf = analyzeHeader(vcfHeader);
-        } catch (TribbleException e) {
-            e.setSource(null); // do not leak source file location
-            throw new VcfParseException(e.getMessage());
         } catch (IOException e) {
             throw new UncheckedIOException(e);
         }

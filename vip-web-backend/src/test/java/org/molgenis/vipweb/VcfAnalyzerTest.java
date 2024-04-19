@@ -1,28 +1,39 @@
 package org.molgenis.vipweb;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.List;
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
+import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.molgenis.vipweb.model.constants.Assembly;
 
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.Mockito.doThrow;
+import static org.mockito.Mockito.mock;
+
 @ExtendWith(MockitoExtension.class)
 class VcfAnalyzerTest {
-
+    @Mock
+    private VcfValidator vcfValidator;
     private VcfAnalyzer vcfAnalyzer;
 
     @BeforeEach
     void setUp() {
-        vcfAnalyzer = new VcfAnalyzer();
+        vcfAnalyzer = new VcfAnalyzer(vcfValidator);
+    }
+
+    @Test
+    void analyzeInvalid() {
+        Path vcfPath = mock(Path.class);
+        doThrow(VcfParseException.class).when(vcfValidator).validate(vcfPath);
+        assertThrows(VcfParseException.class, () -> vcfAnalyzer.analyze(vcfPath));
     }
 
     @Test
@@ -85,12 +96,6 @@ class VcfAnalyzerTest {
                 vcfAnalyzer.analyze(vcfPath));
     }
 
-    @Test
-    void analyzeCorrupt() {
-        Path vcfPath = Paths.get("src", "test", "resources", "corrupt.vcf");
-        assertThrows(VcfParseException.class, () -> vcfAnalyzer.analyze(vcfPath));
-    }
-
     @ParameterizedTest
     @ValueSource(strings = {"vcf", "vcf.gz"})
     void analyzeVcfFileFormats(String fileType) {
@@ -101,13 +106,5 @@ class VcfAnalyzerTest {
                         .predictedAssembly(Assembly.GRCh38)
                         .build(),
                 vcfAnalyzer.analyze(vcfPath));
-    }
-
-    // https://github.com/samtools/htsjdk/issues/628
-    @ParameterizedTest
-    @ValueSource(strings = {"bcf", "bcf.gz"})
-    void analyzeBcfFileFormats(String fileType) {
-        Path vcfPath = Paths.get("src", "test", "resources", "grch38_trio." + fileType);
-        assertThrows(VcfParseException.class, () -> vcfAnalyzer.analyze(vcfPath));
     }
 }
