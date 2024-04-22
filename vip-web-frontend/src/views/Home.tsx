@@ -110,6 +110,14 @@ const Home: Component = () => {
                     >
                       GitHub
                     </a>
+                    <a
+                      href="https://doi.org/10.1101/2024.04.11.24305656"
+                      target="_blank"
+                      rel="noopener noreferrer nofollow"
+                      class="card-footer-item"
+                    >
+                      Preprint
+                    </a>
                   </footer>
                 </div>
               </div>
