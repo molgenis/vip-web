@@ -5,7 +5,7 @@
 
     <groupId>org.molgenis</groupId>
     <artifactId>vip-web</artifactId>
-    <version>0.0.3</version>
+    <version>0.0.4-SNAPSHOT</version>
     <name>vip-web</name>
     <description>Variant Interpretation Pipeline web interface backend</description>
     <packaging>pom</packaging>
