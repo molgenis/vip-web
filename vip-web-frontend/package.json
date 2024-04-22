@@ -1,6 +1,6 @@
 {
   "name": "vip-web-frontend",
-  "version": "0.0.3-SNAPSHOT",
+  "version": "0.0.3",
   "description": "Variant Interpretation Pipeline web interface frontend",
   "license": "LGPL-3.0",
   "bugs": {
