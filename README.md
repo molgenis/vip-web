@@ -27,6 +27,11 @@ The backend is not aware of the existence of any clusters, all communication is 
 
 ### Backend
 
+#### Requirements
+- Java 21
+
+#### Running
+
 ```
 java -Dspring.profiles.active=dev org.molgenis.vipweb.VipWebApplication
 ```
