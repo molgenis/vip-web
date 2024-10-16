@@ -1,17 +1,14 @@
 os: linux
 dist: jammy
 language: java
+jdk: openjdk21
 cache:
   directories:
     - "$HOME/.m2"
-    - "$HOME/graalvm"
 branches:
   only:
     - main
     - /^v\d+\.\d+(\.\d+)?(-\S*)?$/
-before_install:
-  - ./install-graal.sh $HOME
-  - export JAVA_HOME=$HOME/graalvm/graalvm
-  - export PATH=JAVA_HOME/bin:$PATH
+
 script:
   - mvn clean install
