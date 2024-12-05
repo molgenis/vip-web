@@ -5,16 +5,16 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>3.3.4</version>
+        <version>3.3.6</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>org.molgenis</groupId>
     <artifactId>vip-web-backend</artifactId>
-    <version>0.0.5-SNAPSHOT</version>
+    <version>0.0.5</version>
     <packaging>jar</packaging>
     <properties>
         <java.version>21</java.version>
-        <samtools.htsjdk.version>4.1.1</samtools.htsjdk.version>
+        <samtools.htsjdk.version>4.1.3</samtools.htsjdk.version>
     </properties>
     <dependencyManagement>
         <dependencies>
@@ -140,6 +140,14 @@
                             <artifactId>lombok</artifactId>
                         </exclude>
                     </excludes>
+                </configuration>
+            </plugin>
+            <plugin>
+                <!-- suppress Java 21 dynamic agent loading warning, since there is no suitable fix yet -->
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <configuration>
+                    <argLine>-XX:+EnableDynamicAgentLoading</argLine>
                 </configuration>
             </plugin>
         </plugins>
