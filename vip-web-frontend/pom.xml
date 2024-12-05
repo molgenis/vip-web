@@ -4,7 +4,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.molgenis</groupId>
     <artifactId>vip-web-frontend</artifactId>
-    <version>0.0.4-SNAPSHOT</version>
+    <version>0.0.5</version>
     <packaging>pom</packaging>
 
     <build>
@@ -12,7 +12,7 @@
             <plugin>
                 <groupId>com.github.eirslett</groupId>
                 <artifactId>frontend-maven-plugin</artifactId>
-                <version>1.15.0</version>
+                <version>1.15.1</version>
                 <executions>
                     <execution>
                         <id>install node and pnpm</id>
