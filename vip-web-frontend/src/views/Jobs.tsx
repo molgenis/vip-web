@@ -1,5 +1,5 @@
 import { Component, createResource, For, Show } from "solid-js";
-import { useNavigate } from "@solidjs/router";
+import { A, useNavigate } from "@solidjs/router";
 import { Job, JobId } from "../api/Api.ts";
 import api from "../api/ApiClient.ts";
 import { useStore } from "../store/store.tsx";
@@ -107,11 +107,11 @@ const Jobs: Component = () => {
                                     </td>
                                     <td>
                                       <Show when={job.report} fallback={<span class="icon" />}>
-                                        <a href={`/api/job/${job.id}/report`}>
+                                        <A href={`/api/job/${job.id}/report`}>
                                           <span class="icon is-left is-clickable" title="Download report">
                                             <i class="fas fa-download" />
                                           </span>
-                                        </a>
+                                        </A>
                                       </Show>
                                       <span
                                         class="icon is-left is-clickable"
