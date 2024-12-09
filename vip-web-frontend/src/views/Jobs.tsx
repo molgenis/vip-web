@@ -107,7 +107,7 @@ const Jobs: Component = () => {
                                     </td>
                                     <td>
                                       <Show when={job.report} fallback={<span class="icon" />}>
-                                        <A href={`/api/job/${job.id}/report`} target="_self">
+                                        <A href={window.location.origin + `/api/job/${job.id}/report`} target="_self">
                                           <span class="icon is-left is-clickable" title="Download report">
                                             <i class="fas fa-download" />
                                           </span>
