@@ -8,6 +8,7 @@
     "rootNode": "exit_keep",
     "nodes": {
       "exit_keep": {
+        "label": "KEEP",
         "description": "KEEP",
         "type": "LEAF",
         "class": "KEEP"
