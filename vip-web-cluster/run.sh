@@ -10,7 +10,6 @@ execute() {
   local -r vip_job_id="${3}"
 
   local -r time="${SLURM_TIMELIMIT:-"05:59:59"}"
-  local -r vip_dir="${VIP_DIR}"
   local -r output_dir="${job_dir}/output"
   local -r tmp_dir="${job_dir}/tmp"
   local -r nxf_home_dir="${tmp_dir}/nxf/home"
@@ -31,11 +30,11 @@ execute() {
   sbatch_args+=("--mem=10gb")        # 8 + 2 for driver job
   sbatch_args+=("--nodes=1")
   sbatch_args+=("--open-mode=append")
-  sbatch_args+=("--export=PATH=${vip_dir}:${PATH},VIP_DIR=${vip_dir},TMPDIR=${tmp_dir}/tmp,NXF_HOME=${nxf_home_dir},NXF_TEMP=${nxf_tmp_dir},NXF_WORK=${nxf_work_dir},INPUT_DIR=${job_dir},OUTPUT_DIR=${output_dir}")
+  sbatch_args+=("--export=TMPDIR=${tmp_dir}/tmp,NXF_HOME=${nxf_home_dir},NXF_TEMP=${nxf_tmp_dir},NXF_WORK=${nxf_work_dir},INPUT_DIR=${job_dir},OUTPUT_DIR=${output_dir}")
   sbatch_args+=("--get-user-env=L")
   sbatch_args+=("--output=${output_dir}/job.out")
   sbatch_args+=("--error=${output_dir}/job.err")
-  sbatch_args+=("--chdir=${vip_dir}")
+  sbatch_args+=("--chdir=${output_dir}")
   sbatch_args+=("${SCRIPT_DIR}/run_vip.sh")
 
   local -r job_id="$(SBATCH_QOS="priority" sbatch "${sbatch_args[@]}")"

@@ -27,16 +27,19 @@
         }
       },
       "exit_lb": {
+        "label": "LB",
         "description": "Likely Benign",
         "type": "LEAF",
         "class": "LB"
       },
       "exit_vus": {
+        "label": "VUS",
         "description": "Uncertain Significance",
         "type": "LEAF",
         "class": "VUS"
       },
       "exit_lp": {
+        "label": "LP",
         "description": "Likely Pathogenic",
         "type": "LEAF",
         "class": "LP"

@@ -28,6 +28,7 @@ The backend is not aware of the existence of any clusters, all communication is 
 ### Backend
 
 #### Requirements
+
 - Java 21
 
 #### Running
@@ -72,16 +73,16 @@ java -jar -Dspring.profiles.active=production vip-web-backend-<version>.jar
 
 ### Cluster
 
-Follow https://github.com/molgenis/vip to install VIP on a cluster.
+Use https://github.com/molgenis/take-it-easyconfigs/tree/main/v/vip to install VIP on a cluster.
 
 ```
 git clone https://github.com/molgenis/vip-web
 cd vip-web/vip-web-cluster
-VIPWEB_VIPBOT_USERNAME=<username> VIPWEB_VIPBOT_PASSWORD=<password> VIP_DIR=<path> bash run.sh
+VIPWEB_VIPBOT_USERNAME=<username> VIPWEB_VIPBOT_PASSWORD=<password> bash run.sh
 ```
 
 Example cron job that checks for work every minute:
 
 ```
-* * * * * VIPWEB_VIPBOT_USERNAME=<username> VIPWEB_VIPBOT_PASSWORD=<password> VIP_DIR=<path> /usr/bin/flock -n <path>/vip-web.lockfile /bin/bash <path>/vip-web/vip-web-cluster/run.sh >> <path>/cron.log 2>&1
+* * * * * VIPWEB_VIPBOT_USERNAME=<username> VIPWEB_VIPBOT_PASSWORD=<password> /usr/bin/flock -n <path>/vip-web.lockfile /bin/bash <path>/vip-web/vip-web-cluster/run.sh >> <path>/cron.log 2>&1
 ```
