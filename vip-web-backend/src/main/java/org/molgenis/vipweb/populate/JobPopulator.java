@@ -1,6 +1,5 @@
 package org.molgenis.vipweb.populate;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import org.molgenis.vipweb.UnknownEntityException;
@@ -12,6 +11,7 @@ import org.molgenis.vipweb.service.JobService;
 import org.molgenis.vipweb.service.VcfService;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
+import tools.jackson.databind.ObjectMapper;
 
 import java.io.IOException;
 import java.io.RandomAccessFile;
@@ -34,12 +34,8 @@ public class JobPopulator {
             throw new IllegalArgumentException("'%s' does not exist".formatted(jobsJson));
         }
 
-        try {
-            Jobs jobs = new ObjectMapper().readValue(jobsJson.toFile(), Jobs.class);
-            jobs.jobs().forEach(this::populate);
-        } catch (IOException e) {
-            throw new UncheckedIOException(e);
-        }
+        Jobs jobs = new ObjectMapper().readValue(jobsJson.toFile(), Jobs.class);
+        jobs.jobs().forEach(this::populate);
     }
 
     private void populate(Job job) {

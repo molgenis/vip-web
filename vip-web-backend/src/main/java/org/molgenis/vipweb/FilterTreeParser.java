@@ -1,13 +1,10 @@
 package org.molgenis.vipweb;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.Builder;
 import lombok.Value;
 import org.springframework.stereotype.Component;
+import tools.jackson.databind.ObjectMapper;
 
-import java.io.IOException;
-import java.io.UncheckedIOException;
 import java.nio.channels.Channels;
 import java.nio.channels.ReadableByteChannel;
 import java.util.List;
@@ -17,16 +14,8 @@ import java.util.Map;
 public class FilterTreeParser {
 
     private static FilterTreeRaw readRaw(ReadableByteChannel readableByteChannel) {
-        FilterTreeRaw filterTreeRaw;
-        try {
-            filterTreeRaw =
-                    new ObjectMapper()
-                            .readValue(Channels.newInputStream(readableByteChannel), FilterTreeRaw.class);
-
-        } catch (IOException e) {
-            throw new UncheckedIOException(e);
-        }
-        return filterTreeRaw;
+        return new ObjectMapper()
+                .readValue(Channels.newInputStream(readableByteChannel), FilterTreeRaw.class);
     }
 
     @SuppressWarnings("unchecked")
@@ -43,15 +32,10 @@ public class FilterTreeParser {
                                                 .build())
                         .toList();
 
-        byte[] treeBytes;
-        try {
-            treeBytes =
-                    new ObjectMapper()
-                            .writerWithDefaultPrettyPrinter()
-                            .writeValueAsBytes(filterTreeRaw.tree());
-        } catch (JsonProcessingException e) {
-            throw new UncheckedIOException(e);
-        }
+        byte[] treeBytes =
+                new ObjectMapper()
+                        .writerWithDefaultPrettyPrinter()
+                        .writeValueAsBytes(filterTreeRaw.tree());
 
         return FilterTree.builder()
                 .name(filterTreeRaw.name())

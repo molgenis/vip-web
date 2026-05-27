@@ -7,7 +7,7 @@ import org.molgenis.vipweb.model.dto.UserDetailsDto;
 import org.molgenis.vipweb.model.mapper.UserDetailsMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
-import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
+import org.springframework.http.converter.json.JacksonJsonHttpMessageConverter;
 import org.springframework.http.server.ServletServerHttpResponse;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -21,7 +21,7 @@ import java.io.UncheckedIOException;
 @RequiredArgsConstructor
 public class ApiAuthenticationSuccessHandler implements AuthenticationSuccessHandler {
     private final UserDetailsMapper userDetailsMapper;
-    private final MappingJackson2HttpMessageConverter mappingJackson2HttpMessageConverter;
+    private final JacksonJsonHttpMessageConverter jacksonJsonHttpMessageConverter;
 
     @Override
     public void onAuthenticationSuccess(
@@ -30,7 +30,7 @@ public class ApiAuthenticationSuccessHandler implements AuthenticationSuccessHan
                      new ServletServerHttpResponse(response)) {
             UserDetailsDto userDetailsDto = userDetailsMapper.mapUserDetails((UserDetails) authentication.getPrincipal());
             servletServerHttpResponse.setStatusCode(HttpStatus.OK);
-            mappingJackson2HttpMessageConverter.write(
+            jacksonJsonHttpMessageConverter.write(
                     userDetailsDto, MediaType.APPLICATION_JSON, servletServerHttpResponse);
         } catch (IOException e) {
             response.setStatus(HttpStatus.INTERNAL_SERVER_ERROR.value());
