@@ -29,7 +29,7 @@ import org.springframework.security.web.authentication.logout.LogoutFilter;
 import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
 import org.springframework.security.web.authentication.rememberme.AbstractRememberMeServices;
 import org.springframework.security.web.authentication.rememberme.TokenBasedRememberMeServices;
-import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+import org.springframework.security.web.servlet.util.matcher.PathPatternRequestMatcher;
 
 @Configuration
 @EnableWebSecurity
@@ -45,11 +45,11 @@ public class SecurityConfig {
 
     @Bean
     @Order(1)
-    public SecurityFilterChain apiFilterChain(HttpSecurity http) throws Exception {
+    public SecurityFilterChain apiFilterChain(HttpSecurity http) {
         String pattern = "/api/**";
         return http.securityMatcher(pattern)
                 .authorizeHttpRequests(
-                        auth -> auth.requestMatchers(AntPathRequestMatcher.antMatcher(pattern)).permitAll())
+                        auth -> auth.requestMatchers(PathPatternRequestMatcher.pathPattern(pattern)).permitAll())
                 .addFilterAfter(usernamePasswordAuthenticationFilter(), LogoutFilter.class)
                 .sessionManagement(
                         sessionManagementConfigurer ->
@@ -76,7 +76,7 @@ public class SecurityConfig {
         UsernamePasswordAuthenticationFilter usernamePasswordAuthenticationFilter =
                 new UsernamePasswordAuthenticationFilter(authenticationManager());
         usernamePasswordAuthenticationFilter.setRequiresAuthenticationRequestMatcher(
-                AntPathRequestMatcher.antMatcher("/api/auth/login"));
+                PathPatternRequestMatcher.pathPattern("/api/auth/login"));
         usernamePasswordAuthenticationFilter.setAllowSessionCreation(false);
         usernamePasswordAuthenticationFilter.setAuthenticationSuccessHandler(
                 apiAuthenticationSuccessHandler);
@@ -104,8 +104,8 @@ public class SecurityConfig {
     @Bean
     public AuthenticationProvider authenticationProvider() {
         DaoAuthenticationProvider daoAuthenticationProvider =
-                new DaoAuthenticationProvider(passwordEncoder());
-        daoAuthenticationProvider.setUserDetailsService(userDetailsService);
+                new DaoAuthenticationProvider(userDetailsService);
+        daoAuthenticationProvider.setPasswordEncoder(passwordEncoder());
         return daoAuthenticationProvider;
     }
 

@@ -10,43 +10,46 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.molgenis.vipweb.model.dto.UserDetailsDto;
 import org.molgenis.vipweb.model.mapper.UserDetailsMapper;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
-import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
+import tools.jackson.databind.ObjectMapper;
+
+import java.io.OutputStream;
 
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 class ApiAuthenticationSuccessHandlerTest {
-  @Mock private UserDetailsMapper userDetailsMapper;
-  @Mock private MappingJackson2HttpMessageConverter mappingJackson2HttpMessageConverter;
-  private ApiAuthenticationSuccessHandler apiAuthenticationSuccessHandler;
+    @Mock
+    private UserDetailsMapper userDetailsMapper;
+    @Mock
+    private ObjectMapper objectMapper;
+    private ApiAuthenticationSuccessHandler apiAuthenticationSuccessHandler;
 
-  @BeforeEach
-  void setUp() {
-    apiAuthenticationSuccessHandler =
-        new ApiAuthenticationSuccessHandler(userDetailsMapper, mappingJackson2HttpMessageConverter);
-  }
+    @BeforeEach
+    void setUp() {
+        apiAuthenticationSuccessHandler =
+                new ApiAuthenticationSuccessHandler(userDetailsMapper, objectMapper);
+    }
 
-  @Test
-  void onAuthenticationSuccess() {
-    HttpServletRequest request = mock(HttpServletRequest.class);
-    HttpServletResponse response = mock(HttpServletResponse.class);
+    @Test
+    void onAuthenticationSuccess() {
+        HttpServletRequest request = mock(HttpServletRequest.class);
+        HttpServletResponse response = mock(HttpServletResponse.class);
 
-    UserDetails userDetails = mock(UserDetails.class);
-    Authentication authentication =
-        when(mock(Authentication.class).getPrincipal()).thenReturn(userDetails).getMock();
+        UserDetails userDetails = mock(UserDetails.class);
+        Authentication authentication =
+                when(mock(Authentication.class).getPrincipal()).thenReturn(userDetails).getMock();
 
-    UserDetailsDto userDetailsDto = mock(UserDetailsDto.class);
-    when(userDetailsMapper.mapUserDetails(userDetails)).thenReturn(userDetailsDto);
+        UserDetailsDto userDetailsDto = mock(UserDetailsDto.class);
+        when(userDetailsMapper.mapUserDetails(userDetails)).thenReturn(userDetailsDto);
 
-    apiAuthenticationSuccessHandler.onAuthenticationSuccess(request, response, authentication);
-    assertAll(
-        () -> verify(response).setStatus(HttpStatus.OK.value()),
-        () ->
-            verify(mappingJackson2HttpMessageConverter)
-                .write(eq(userDetailsDto), eq(MediaType.APPLICATION_JSON), any()));
-  }
+        apiAuthenticationSuccessHandler.onAuthenticationSuccess(request, response, authentication);
+        assertAll(
+                () -> verify(response).setStatus(HttpStatus.OK.value()),
+                () ->
+                        verify(objectMapper)
+                                .writeValue((OutputStream) any(), eq(userDetailsDto)));
+    }
 }

@@ -1,5 +1,6 @@
+arch: amd64
 os: linux
-dist: jammy
+dist: noble
 language: java
 jdk: openjdk21
 cache:

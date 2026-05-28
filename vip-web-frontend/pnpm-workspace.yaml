@@ -1,0 +1,10 @@
+allowBuilds:
+  '@parcel/watcher': true
+  esbuild: true
+blockExoticSubdeps: true
+minimumReleaseAge: 720
+trustPolicy: no-downgrade
+trustPolicyExclude:
+  - ast-v8-to-istanbul@1.0.2
+  - semver@6.3.1
+  - tinyexec@1.2.2
