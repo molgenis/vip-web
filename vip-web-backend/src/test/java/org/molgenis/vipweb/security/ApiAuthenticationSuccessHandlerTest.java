@@ -10,10 +10,11 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.molgenis.vipweb.model.dto.UserDetailsDto;
 import org.molgenis.vipweb.model.mapper.UserDetailsMapper;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
-import org.springframework.http.converter.json.JacksonJsonHttpMessageConverter;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
+import tools.jackson.databind.ObjectMapper;
+
+import java.io.OutputStream;
 
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.mockito.Mockito.*;
@@ -23,13 +24,13 @@ class ApiAuthenticationSuccessHandlerTest {
     @Mock
     private UserDetailsMapper userDetailsMapper;
     @Mock
-    private JacksonJsonHttpMessageConverter mappingJackson2HttpMessageConverter;
+    private ObjectMapper objectMapper;
     private ApiAuthenticationSuccessHandler apiAuthenticationSuccessHandler;
 
     @BeforeEach
     void setUp() {
         apiAuthenticationSuccessHandler =
-                new ApiAuthenticationSuccessHandler(userDetailsMapper, mappingJackson2HttpMessageConverter);
+                new ApiAuthenticationSuccessHandler(userDetailsMapper, objectMapper);
     }
 
     @Test
@@ -48,7 +49,7 @@ class ApiAuthenticationSuccessHandlerTest {
         assertAll(
                 () -> verify(response).setStatus(HttpStatus.OK.value()),
                 () ->
-                        verify(mappingJackson2HttpMessageConverter)
-                                .write(eq(userDetailsDto), eq(MediaType.APPLICATION_JSON), any()));
+                        verify(objectMapper)
+                                .writeValue((OutputStream) any(), eq(userDetailsDto)));
     }
 }
