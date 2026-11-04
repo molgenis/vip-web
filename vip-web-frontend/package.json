@@ -51,7 +51,7 @@
     "@solidjs/router": "^1.0.1",
     "axios": "^1.19.0",
     "bulma": "^0.9.4",
-    "solid-js": "^1.9.15"
+    "solid-js": "^1.9.18"
   },
   "lint-staged": {
     "src/**/*.{tsx,ts}": [
