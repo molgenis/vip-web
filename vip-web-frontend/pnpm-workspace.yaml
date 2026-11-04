@@ -10,3 +10,4 @@ trustPolicyExclude:
   - tinyexec@1.2.2
 overrides:
   brace-expansion: 5.0.12
+  follow-redirects: 1.16.2
