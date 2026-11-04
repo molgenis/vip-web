@@ -64,8 +64,8 @@ importers:
         specifier: ^3.9.10
         version: 3.9.10
       sass:
-        specifier: ^1.103.0
-        version: 1.103.0
+        specifier: ^1.107.1
+        version: 1.107.1
       typescript:
         specifier: ^6.0.3
         version: 6.0.3
@@ -74,13 +74,13 @@ importers:
         version: 8.67.0(eslint@10.14.0)(typescript@6.0.3)
       vite:
         specifier: ^8.2.2
-        version: 8.2.2(esbuild@0.28.2)(sass@1.103.0)
+        version: 8.2.2(esbuild@0.28.2)(sass@1.107.1)
       vite-plugin-solid:
         specifier: ^2.11.15
-        version: 2.11.15(solid-js@1.9.18)(vite@8.2.2(esbuild@0.28.2)(sass@1.103.0))
+        version: 2.11.15(solid-js@1.9.18)(vite@8.2.2(esbuild@0.28.2)(sass@1.107.1))
       vitest:
         specifier: ^4.1.11
-        version: 4.1.11(@vitest/coverage-v8@4.1.11)(jsdom@30.1.3)(vite@8.2.2(esbuild@0.28.2)(sass@1.103.0))
+        version: 4.1.11(@vitest/coverage-v8@4.1.11)(jsdom@30.1.3)(vite@8.2.2(esbuild@0.28.2)(sass@1.107.1))
 
 packages:
 
@@ -1527,8 +1527,8 @@ packages:
     engines: {node: ^20.19.0 || >=22.12.0}
     hasBin: true
 
-  sass@1.103.0:
-    resolution: {integrity: sha512-+QpdXUDw19lVqRDlYIyje1Lq/0gHsnNHIl4x1CqeUg13zRhaQN11UvTvouwHWLXc9Q3rQVT6oBhFGRYJ5Z8gHw==}
+  sass@1.107.1:
+    resolution: {integrity: sha512-aJ1/LvxOOb04YhmiBjzZn3jVwdHKol+OVhoMV6fFl02fF9T3i+5Mg9l/CnzqtM+NX5Jn5o3lAbs/ZJivTCLHfQ==}
     engines: {node: '>=20.19.0'}
     hasBin: true
 
@@ -2484,7 +2484,7 @@ snapshots:
       obug: 2.1.4
       std-env: 4.2.0
       tinyrainbow: 3.1.1
-      vitest: 4.1.11(@vitest/coverage-v8@4.1.11)(jsdom@30.1.3)(vite@8.2.2(esbuild@0.28.2)(sass@1.103.0))
+      vitest: 4.1.11(@vitest/coverage-v8@4.1.11)(jsdom@30.1.3)(vite@8.2.2(esbuild@0.28.2)(sass@1.107.1))
 
   '@vitest/expect@4.1.11':
     dependencies:
@@ -2495,13 +2495,13 @@ snapshots:
       chai: 6.2.2
       tinyrainbow: 3.1.1
 
-  '@vitest/mocker@4.1.11(vite@8.2.2(esbuild@0.28.2)(sass@1.103.0))':
+  '@vitest/mocker@4.1.11(vite@8.2.2(esbuild@0.28.2)(sass@1.107.1))':
     dependencies:
       '@vitest/spy': 4.1.11
       estree-walker: 3.0.3
       magic-string: 0.30.21
     optionalDependencies:
-      vite: 8.2.2(esbuild@0.28.2)(sass@1.103.0)
+      vite: 8.2.2(esbuild@0.28.2)(sass@1.107.1)
 
   '@vitest/pretty-format@4.1.11':
     dependencies:
@@ -3192,7 +3192,7 @@ snapshots:
       '@rolldown/binding-win32-arm64-msvc': 1.2.5
       '@rolldown/binding-win32-x64-msvc': 1.2.5
 
-  sass@1.103.0:
+  sass@1.107.1:
     dependencies:
       chokidar: 5.0.0
       immutable: 5.1.9
@@ -3311,7 +3311,7 @@ snapshots:
     dependencies:
       punycode: 2.3.1
 
-  vite-plugin-solid@2.11.15(solid-js@1.9.18)(vite@8.2.2(esbuild@0.28.2)(sass@1.103.0)):
+  vite-plugin-solid@2.11.15(solid-js@1.9.18)(vite@8.2.2(esbuild@0.28.2)(sass@1.107.1)):
     dependencies:
       '@babel/core': 7.29.7
       '@types/babel__core': 7.20.5
@@ -3319,12 +3319,12 @@ snapshots:
       merge-anything: 5.1.7
       solid-js: 1.9.18
       solid-refresh: 0.6.3(solid-js@1.9.18)
-      vite: 8.2.2(esbuild@0.28.2)(sass@1.103.0)
-      vitefu: 1.1.3(vite@8.2.2(esbuild@0.28.2)(sass@1.103.0))
+      vite: 8.2.2(esbuild@0.28.2)(sass@1.107.1)
+      vitefu: 1.1.3(vite@8.2.2(esbuild@0.28.2)(sass@1.107.1))
     transitivePeerDependencies:
       - supports-color
 
-  vite@8.2.2(esbuild@0.28.2)(sass@1.103.0):
+  vite@8.2.2(esbuild@0.28.2)(sass@1.107.1):
     dependencies:
       lightningcss: 1.33.0
       picomatch: 4.0.5
@@ -3334,16 +3334,16 @@ snapshots:
     optionalDependencies:
       esbuild: 0.28.2
       fsevents: 2.3.3
-      sass: 1.103.0
+      sass: 1.107.1
 
-  vitefu@1.1.3(vite@8.2.2(esbuild@0.28.2)(sass@1.103.0)):
+  vitefu@1.1.3(vite@8.2.2(esbuild@0.28.2)(sass@1.107.1)):
     optionalDependencies:
-      vite: 8.2.2(esbuild@0.28.2)(sass@1.103.0)
+      vite: 8.2.2(esbuild@0.28.2)(sass@1.107.1)
 
-  vitest@4.1.11(@vitest/coverage-v8@4.1.11)(jsdom@30.1.3)(vite@8.2.2(esbuild@0.28.2)(sass@1.103.0)):
+  vitest@4.1.11(@vitest/coverage-v8@4.1.11)(jsdom@30.1.3)(vite@8.2.2(esbuild@0.28.2)(sass@1.107.1)):
     dependencies:
       '@vitest/expect': 4.1.11
-      '@vitest/mocker': 4.1.11(vite@8.2.2(esbuild@0.28.2)(sass@1.103.0))
+      '@vitest/mocker': 4.1.11(vite@8.2.2(esbuild@0.28.2)(sass@1.107.1))
       '@vitest/pretty-format': 4.1.11
       '@vitest/runner': 4.1.11
       '@vitest/snapshot': 4.1.11
@@ -3360,7 +3360,7 @@ snapshots:
       tinyexec: 1.3.0
       tinyglobby: 0.2.17
       tinyrainbow: 3.1.1
-      vite: 8.2.2(esbuild@0.28.2)(sass@1.103.0)
+      vite: 8.2.2(esbuild@0.28.2)(sass@1.107.1)
       why-is-node-running: 2.3.0
     optionalDependencies:
       '@vitest/coverage-v8': 4.1.11(vitest@4.1.11)
