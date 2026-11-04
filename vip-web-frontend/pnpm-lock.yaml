@@ -21,8 +21,8 @@ importers:
         specifier: ^7.3.1
         version: 7.3.1
       '@solidjs/router':
-        specifier: ^1.0.0
-        version: 1.0.0(solid-js@1.9.15)
+        specifier: ^1.0.1
+        version: 1.0.1(solid-js@1.9.15)
       axios:
         specifier: ^1.19.0
         version: 1.19.0
@@ -650,8 +650,8 @@ packages:
   '@rolldown/pluginutils@1.0.1':
     resolution: {integrity: sha512-2j9bGt5Jh8hj+vPtgzPtl72j0yRxHAyumoo6TNfAjsLB04UtpSvPbPcDcBMxz7n+9CYB0c1GxQFxYRg2jimqGw==}
 
-  '@solidjs/router@1.0.0':
-    resolution: {integrity: sha512-cCSk1hvgCowiMa9bzzYWHiLu1U4E22+DfJe6/rOwAyECKrxc3jrd5QnoW3sDDJtW+e077cz/M67bPl3DqOBw1Q==}
+  '@solidjs/router@1.0.1':
+    resolution: {integrity: sha512-JxY0+Y8RMZZjk3pATfY5f9ANbFa26+aOf3X7KtpRC9yCuy7f2UWDL8ukx6pVot2OYOJyUfTH7LYG2bbMPZ3WDw==}
     peerDependencies:
       solid-js: ^1.8.6
 
@@ -2146,7 +2146,7 @@ snapshots:
 
   '@rolldown/pluginutils@1.0.1': {}
 
-  '@solidjs/router@1.0.0(solid-js@1.9.15)':
+  '@solidjs/router@1.0.1(solid-js@1.9.15)':
     dependencies:
       solid-js: 1.9.15
 
