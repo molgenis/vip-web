@@ -31,7 +31,7 @@ execute() {
   sbatch_args+=("--nodes=1")
   sbatch_args+=("--open-mode=append")
   sbatch_args+=("--export=TMPDIR=${tmp_dir}/tmp,NXF_HOME=${nxf_home_dir},NXF_TEMP=${nxf_tmp_dir},NXF_WORK=${nxf_work_dir},INPUT_DIR=${job_dir},OUTPUT_DIR=${output_dir}")
-  sbatch_args+=("--get-user-env=L")
+  sbatch_args+=("--get-user-env")
   sbatch_args+=("--output=${output_dir}/job.out")
   sbatch_args+=("--error=${output_dir}/job.err")
   sbatch_args+=("--chdir=${output_dir}")
