@@ -5,7 +5,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>4.1.1</version>
+        <version>4.1.2</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>org.molgenis</groupId>
@@ -14,7 +14,7 @@
     <packaging>jar</packaging>
     <properties>
         <java.version>21</java.version>
-        <samtools.htsjdk.version>5.0.0</samtools.htsjdk.version>
+        <samtools.htsjdk.version>5.0.2</samtools.htsjdk.version>
     </properties>
     <dependencyManagement>
         <dependencies>
